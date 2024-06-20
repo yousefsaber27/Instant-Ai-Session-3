@@ -1,0 +1,132 @@
+# BFS vs DFS Comparison
+
+## Breadth-First Search (BFS)
+
+### Characteristics
+- Explores all neighbors at the present depth prior to moving on to nodes at the next depth level.
+- Utilizes a queue data structure (FIFO).
+
+### Use Cases
+- Finding the shortest path in an unweighted graph.
+- Level-order traversal of a tree.
+- Solving puzzles like the shortest path in a maze.
+
+### Implementation
+
+```python
+from collections import deque
+
+def bfs(graph, start):
+    visited = set()
+    queue = deque([start])
+    order = []
+
+    while queue:
+        node = queue.popleft()
+        if node not in visited:
+            visited.add(node)
+            order.append(node)
+            queue.extend(graph[node] - visited)
+    
+    return order
+
+# Example usage
+graph = {
+    'A': {'B', 'C'},
+    'B': {'A', 'D', 'E'},
+    'C': {'A', 'F'},
+    'D': {'B'},
+    'E': {'B', 'F'},
+    'F': {'C', 'E'}
+}
+start_node = 'A'
+print(bfs(graph, start_node))
+```
+
+## Depth-First Search (DFS)
+
+### Characteristics
+- Explores as far as possible along each branch before backtracking.
+- Utilizes a stack data structure (LIFO), either explicitly or through recursion.
+
+### Use Cases
+- Pathfinding in a maze or game.
+- Topological sorting.
+- Detecting cycles in a graph.
+
+### Implementation
+
+#### Iterative
+
+```python
+def dfs_iterative(graph, start):
+    visited = set()
+    stack = [start]
+    order = []
+
+    while stack:
+        node = stack.pop()
+        if node not in visited:
+            visited.add(node)
+            order.append(node)
+            stack.extend(graph[node] - visited)
+    
+    return order
+
+# Example usage
+graph = {
+    'A': {'B', 'C'},
+    'B': {'A', 'D', 'E'},
+    'C': {'A', 'F'},
+    'D': {'B'},
+    'E': {'B', 'F'},
+    'F': {'C', 'E'}
+}
+start_node = 'A'
+print(dfs_iterative(graph, start_node))
+```
+
+#### Recursive
+
+```python
+def dfs_recursive(graph, start, visited=None, order=None):
+    if visited is None:
+        visited = set()
+    if order is None:
+        order = []
+
+    visited.add(start)
+    order.append(start)
+    for neighbor in graph[start] - visited:
+        dfs_recursive(graph, neighbor, visited, order)
+    
+    return order
+
+# Example usage
+graph = {
+    'A': {'B', 'C'},
+    'B': {'A', 'D', 'E'},
+    'C': {'A', 'F'},
+    'D': {'B'},
+    'E': {'B', 'F'},
+    'F': {'C', 'E'}
+}
+start_node = 'A'
+print(dfs_recursive(graph, start_node))
+```
+
+## Comparison
+
+| Feature               | BFS                                     | DFS                                     |
+|-----------------------|-----------------------------------------|-----------------------------------------|
+| Data Structure        | Queue                                   | Stack (or Recursion)                    |
+| Time Complexity       | O(V + E)                                | O(V + E)                                |
+| Space Complexity      | O(V)                                    | O(V) (can be O(V) in recursion stack)   |
+| Shortest Path         | Yes (in unweighted graphs)              | No                                      |
+| Suitable for Large Graphs | Better for wider graphs                | Better for deeper graphs                |
+| Cycles Detection      | Not inherently designed for this        | Yes, using additional mechanisms        |
+
+## Conclusion
+
+Both BFS and DFS are fundamental graph traversal algorithms with their own strengths and weaknesses. BFS is ideal for finding the shortest path in unweighted graphs and level-order traversal, while DFS is more suited for scenarios where exploring all nodes in a particular branch is required, such as in topological sorting and cycle detection.
+```
