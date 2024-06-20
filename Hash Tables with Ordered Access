@@ -1,0 +1,18 @@
+Hash tables with ordered access, like Python's dictionaries, facilitate faster sorting due to several inherent properties:
+
+1. **Direct Access with Ordering**: Ordered hash tables maintain the order of insertion or a sorted order of keys, allowing for quick retrieval in the desired order.
+2. **Efficient Insertion and Deletion**: Hash tables offer average-case constant time, O(1), for insertions and deletions. When combined with ordering mechanisms, the overhead of maintaining order is minimized.
+3. **Reduced Sorting Overhead**: Since the data is already maintained in an ordered structure, the need for a full sorting operation is reduced. Accessing elements in order can be done in linear time, O(n).
+
+These properties of ordered hash tables reduce the overall complexity and time required for sorting, leveraging their structural efficiencies to facilitate faster operations.
+
+### Python Dictionaries
+In Python, the built-in dictionary (map) is implemented using a hash table. Starting from Python 3.7, the insertion order of keys is guaranteed to be preserved, though this feature was an implementation detail in Python 3.6.
+
+#### Key Characteristics of Python Dictionaries:
+1. **Hash Table Implementation**: Python dictionaries use a hash table to provide average-case constant time complexity, O(1), for lookups, insertions, and deletions.
+2. **Insertion Order Preservation**: As of Python 3.7, dictionaries maintain the order of keys based on their insertion sequence. This is achieved without sacrificing the efficiency of the hash table.
+3. **Dynamic Resizing**: The underlying hash table dynamically resizes as elements are added, maintaining efficient access times.
+4. **Amortized Operations**: Although resizing the hash table can be costly, these operations are amortized, meaning the average time complexity remains low over a sequence of operations.
+
+This hash table implementation combines efficient average-case performance for common operations with the practical benefit of maintaining insertion order, making Python dictionaries both powerful and user-friendly.
